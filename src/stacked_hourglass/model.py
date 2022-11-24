@@ -177,15 +177,18 @@ class HourglassNet(nn.Module):
         x = self.layer1(x)
         x = self.maxpool(x)
         x = self.layer2(x)
+        w = x
         x = self.layer3(x)
+        lat.append([0, w])
 
         for i in range(self.num_stacks):
             y, z = self.hg[i](x)
             y = self.res[i](y)
+            w = y
             y = self.fc[i](y)
             score = self.score[i](y)
             out.append(score)
-            lat.append([z, y]) # Latent at Mid of HG and Feature after FConV
+            lat.append([z, w]) # Latent at Mid of HG and Feature after FConV
             if i < self.num_stacks-1:
                 fc_ = self.fc_[i](y)
                 score_ = self.score_[i](score)
