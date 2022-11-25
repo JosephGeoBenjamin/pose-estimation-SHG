@@ -3,12 +3,12 @@
 
 
 python scripts/train_mpii.py \
-    --arch=hg1 \
+    --arch=hg2 \
     --image-path=/home/joseph.benjamin/LABS/cv701/Asgmt-4/data/images/ \
-    --checkpoint=checkpoint/hg1-base \
+    --checkpoint=checkpoint/hg2-kld-fcv-Mean   \
     --epochs=30 \
     --train-batch=24 \
     --workers=24 \
     --test-batch=24 \
-    --lr=1e-3 \
+    --lr=1e-3  \
     --schedule 15 17

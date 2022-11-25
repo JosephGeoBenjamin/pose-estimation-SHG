@@ -39,7 +39,7 @@ def kldiv_distill_loss(output):
     '''Loss fuction for self Distillation
     output: 2dim List of Tensors with 2nd axis 1 TODO:JGB: find why?
     '''
-    batch_size = output[0][0].size(0)
+    batch_size = output[1][0].size(0)
     loss = 0
     ## for HG Latent in Middle
     # last = softmax(output[-1][0], dim=1)
