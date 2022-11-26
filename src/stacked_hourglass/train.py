@@ -17,8 +17,8 @@ def do_training_step(model, optimiser, input, target, data_info, target_weight=N
         output, latent = model(input)
         loss = sum(joints_mse_loss(o, target, target_weight) for o in output)
         ## KL-Div loss for self-distillation
-        if len(latent) >1:
-            loss+=kldiv_distill_loss(latent)
+        # if len(latent) >1:
+        #     loss+=kldiv_distill_loss(latent)
 
         # Backward pass and parameter update.
         optimiser.zero_grad()

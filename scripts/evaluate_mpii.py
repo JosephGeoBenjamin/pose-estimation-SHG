@@ -10,6 +10,14 @@ from stacked_hourglass import hg1, hg2, hg8
 from stacked_hourglass.datasets.mpii import Mpii, print_mpii_validation_accuracy
 from stacked_hourglass.train import do_validation_epoch
 
+def get_flexible_weights(model, pretrain_dict_in):
+
+    model_dict = model.state_dict()
+    pretrain_dict = {k: v for k, v in pretrain_dict_in.items() if k in model_dict}
+    print("Pretrained layers:", pretrain_dict.keys())
+    model_dict.update(pretrain_dict)
+
+    return model_dict
 
 def main(args):
     # Select the hardware device to use for inference.
@@ -45,6 +53,10 @@ def main(args):
         state_dict = checkpoint['state_dict']
         if sorted(state_dict.keys())[0].startswith('module.'):
             model = DataParallel(model)
+
+        if 0: ## Load weights of 2hg to 1hg
+            state_dict = get_flexible_weights(model, state_dict)
+
         model.load_state_dict(state_dict)
 
     # Initialise the MPII validation set dataloader.
