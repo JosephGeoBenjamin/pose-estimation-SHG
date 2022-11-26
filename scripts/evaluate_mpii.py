@@ -59,7 +59,7 @@ def main(args):
     print('\nFinal validation PCKh scores:\n')
     eval_acc = print_mpii_validation_accuracy(predictions, ret=True)
 
-    print(eval_acc, file=open(os.path.dirname(args.model_file)+"eval_acc.txt"))
+    print(eval_acc, file=open(os.path.dirname(args.model_file)+"/eval_acc.txt", 'a'))
 
 
 if __name__ == '__main__':
