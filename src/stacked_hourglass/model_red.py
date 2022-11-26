@@ -67,7 +67,7 @@ class Hourglass(nn.Module):
         self.block = block
         self.hg = self._make_hour_glass(block, num_blocks, planes, depth)
 
-        ## TODO:JGB: Not Clean code, temporay work around
+        ## EDIT:JGB: temporay work arounds
         self.latm = 0
 
     def _make_residual(self, block, num_blocks, planes):
@@ -86,7 +86,8 @@ class Hourglass(nn.Module):
                 res.append(self._make_residual(block, num_blocks, planes))
 
             # EDIT: deconv layer
-            res.append(nn.ConvTranspose2d(planes, planes, 3, stride=2, output_padding =1))
+            res.append(nn.ConvTranspose2d(2*planes, 2*planes, 3, stride=2,
+                                        padding=1, output_padding=1))
             hg.append(nn.ModuleList(res))
         return nn.ModuleList(hg)
 
@@ -102,7 +103,10 @@ class Hourglass(nn.Module):
             self.latm = low2 ## TODO:JGB: clean
 
         low3 = self.hg[n-1][2](low2)
-        up2 = F.interpolate(low3, scale_factor=2)
+        # EDIT: deconv layer
+        # up2 = F.interpolate(low3, scale_factor=2)
+        rn = len(self.hg[n-1])
+        up2 = self.hg[n-1][rn-1](low3)
         out = up1 + up2
         return out
 
