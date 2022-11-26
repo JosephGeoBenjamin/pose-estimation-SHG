@@ -1,5 +1,5 @@
 import torch.nn as nn
-from torch.nn.functional import mse_loss, kl_div, softmax
+from torch.nn.functional import mse_loss, kl_div, softmax, log_softmax
 
 
 def joints_mse_loss(output, target, target_weight=None):
@@ -42,15 +42,15 @@ def kldiv_distill_loss(output):
     batch_size = output[1][0].size(0)
     loss = 0
     ## for HG Latent in Middle
-    # last = softmax(output[-1][0], dim=1)
+    # last = log_softmax(output[-1][0], dim=1)
     # for i in range(len(output)-1):
     #     curr = softmax(output[i][0], dim=1)
     #     loss+=kl_div(curr, last, reduction='mean')
 
     ## for Feature maps
-    last = softmax(output[-1][1], dim=1)
+    last = log_softmax(output[-1][1], dim=1)
     for i in range(len(output)-1):
         curr = softmax(output[i][1], dim=1)
-        loss+=kl_div(curr, last, reduction='mean')
+        loss+=kl_div(curr, last, reduction='batchmean')
 
     return loss
