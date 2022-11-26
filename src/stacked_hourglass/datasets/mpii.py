@@ -170,7 +170,7 @@ def evaluate_mpii_validation_accuracy(preds):
     return PCKh
 
 
-def print_mpii_validation_accuracy(preds):
+def print_mpii_validation_accuracy(preds, ret=False):
     PCKh = evaluate_mpii_validation_accuracy(preds)
 
     joint_names = Mpii.DATA_INFO.joint_names
@@ -189,9 +189,15 @@ def print_mpii_validation_accuracy(preds):
     rank = joint_names.index('right_ankle')
     rhip = joint_names.index('right_hip')
 
-    print(tabulate([
+    print_obj = tabulate([
         ['Head', 'Shoulder', 'Elbow', 'Wrist', 'Hip', 'Knee', 'Ankle', 'Mean'],
         [PCKh[head], 0.5 * (PCKh[lsho] + PCKh[rsho]), 0.5 * (PCKh[lelb] + PCKh[relb]),
         0.5 * (PCKh[lwri] + PCKh[rwri]), 0.5 * (PCKh[lhip] + PCKh[rhip]),
         0.5 * (PCKh[lkne] + PCKh[rkne]), 0.5 * (PCKh[lank] + PCKh[rank]), np.mean(PCKh)]
-    ], headers='firstrow', floatfmt='0.2f'))
+    ], headers='firstrow', floatfmt='0.2f')
+
+    print(print_obj)
+    if ret:
+        return print_obj
+
+
