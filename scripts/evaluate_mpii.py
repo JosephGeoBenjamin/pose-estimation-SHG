@@ -54,7 +54,7 @@ def main(args):
         if sorted(state_dict.keys())[0].startswith('module.'):
             model = DataParallel(model)
 
-        if 0: ## Load weights of 2hg to 1hg
+        if 0: ## EDIT: Load weights of 2hg to 1hg
             state_dict = get_flexible_weights(model, state_dict)
 
         model.load_state_dict(state_dict)
