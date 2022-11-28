@@ -2,6 +2,7 @@
 importlib_resources
 matplotlib
 Pillow
+opencv-python
 scipy
 tabulate
 torch
