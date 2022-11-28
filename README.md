@@ -2,6 +2,8 @@
 
 This is a fork of [anibali/pytorch-stacked-hourglass](https://github.com/anibali/pytorch-stacked-hourglass) which is fork of [bearpaw/pytorch-pose](https://github.com/bearpaw/pytorch-pose) which is modified for use Course Assignment CV701-MBZUAI.
 
+Paper: [Stacked Hourglass Networks for Human Pose Estimation](https://arxiv.org/abs/1603.06937)
+
 
 ## Usage
 
