@@ -5,7 +5,7 @@
 python scripts/train_mpii.py \
     --arch=hg2 \
     --image-path=/home/joseph.benjamin/LABS/cv701/Asgmt-4/data/images/ \
-    --checkpoint=checkpoint/hg2-kld-fcv-Mean   \
+    --checkpoint=checkpoint/hg2-grp-dil/  \
     --epochs=30 \
     --train-batch=24 \
     --workers=24 \

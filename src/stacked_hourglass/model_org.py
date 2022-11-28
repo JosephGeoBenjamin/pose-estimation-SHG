@@ -183,7 +183,7 @@ class HourglassNet(nn.Module):
                 score_ = self.score_[i](score)
                 x = x + fc_ + score_
 
-        return out
+        return out, 0
 
 
 def hg(**kwargs):
@@ -219,7 +219,7 @@ def hg8(pretrained=False, progress=True, num_blocks=1, num_classes=16):
 
 if __name__ == "__main__":
 
-    model = hg2()
+    model = hg8()
     print(model)
     pytorch_total_params = sum(p.numel() for p in  model.parameters())
     print('Number of parameters: {0}'.format(pytorch_total_params))

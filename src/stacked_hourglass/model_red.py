@@ -30,7 +30,7 @@ class Bottleneck(nn.Module):
         self.bn2 = nn.BatchNorm2d(planes)
         #EDIT: added group conv param
         self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride,
-                               padding=1, bias=True, groups=planes)
+                        padding=2, bias=True, groups=planes, dilation=2)
         self.bn3 = nn.BatchNorm2d(planes)
         self.conv3 = nn.Conv2d(planes, planes * 2, kernel_size=1, bias=True)
         self.relu = nn.ReLU(inplace=True)
@@ -83,8 +83,8 @@ class Hourglass(nn.Module):
                 res.append(self._make_residual(block, num_blocks, planes))
 
             # EDIT: deconv layer
-            res.append(nn.ConvTranspose2d(2*planes, 2*planes, 3, stride=2,
-                                padding=1, output_padding=1, groups=planes))
+            # res.append(nn.ConvTranspose2d(2*planes, 2*planes, 3, stride=2,
+            #                     padding=1, output_padding=1, groups=planes))
             hg.append(nn.ModuleList(res))
         return nn.ModuleList(hg)
 
@@ -97,13 +97,12 @@ class Hourglass(nn.Module):
             low2 = self._hour_glass_forward(n-1, low1)
         else:
             low2 = self.hg[n-1][3](low1)
-            self.latm = low2 ## TODO:JGB: clean
 
         low3 = self.hg[n-1][2](low2)
         # EDIT: deconv layer
-        # up2 = F.interpolate(low3, scale_factor=2)
-        rn = len(self.hg[n-1])
-        up2 = self.hg[n-1][rn-1](low3)
+        up2 = F.interpolate(low3, scale_factor=2)
+        # rn = len(self.hg[n-1])
+        # up2 = self.hg[n-1][rn-1](low3)
         out = up1 + up2
         return out
 
@@ -184,18 +183,17 @@ class HourglassNet(nn.Module):
         x = self.layer3(x)
 
         for i in range(self.num_stacks):
-            y, z = self.hg[i](x)
+            y = self.hg[i](x)
             y = self.res[i](y)
             y = self.fc[i](y)
             score = self.score[i](y)
             out.append(score)
-            lat.append([z, y]) # Latent at Mid of HG and Feature after FConV
             if i < self.num_stacks-1:
                 fc_ = self.fc_[i](y)
                 score_ = self.score_[i](score)
                 x = x + fc_ + score_
 
-        return out, lat
+        return out, 0
 
 
 def hg(**kwargs):
@@ -220,6 +218,10 @@ def hg1(pretrained=False, progress=True, num_blocks=1, num_classes=16):
 
 def hg2(pretrained=False, progress=True, num_blocks=1, num_classes=16):
     return _hg('hg2', pretrained, progress, num_stacks=2, num_blocks=num_blocks,
+               num_classes=num_classes)
+
+def hg3(pretrained=False, progress=True, num_blocks=1, num_classes=16):
+    return _hg('hg3', pretrained, progress, num_stacks=3, num_blocks=num_blocks,
                num_classes=num_classes)
 
 

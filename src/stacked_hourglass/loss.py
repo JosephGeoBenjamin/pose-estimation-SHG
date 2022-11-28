@@ -48,9 +48,9 @@ def kldiv_distill_loss(output):
     #     loss+=kl_div(curr, last, reduction='mean')
 
     # for Feature maps
-    last = softmax(output[-1][1], dim=1)
-    for i in range(len(output)-1):
-        curr = log_softmax(output[i][1], dim=1)
-        loss+=kl_div(curr, last, reduction='batchmean')
+    # last = softmax(output[-1][1], dim=1)
+    # for i in range(len(output)-1):
+    #     curr = log_softmax(output[i][1], dim=1)
+    #     loss+=kl_div(curr, last, reduction='batchmean')
     #TODO: turn on in Train.py
     return loss

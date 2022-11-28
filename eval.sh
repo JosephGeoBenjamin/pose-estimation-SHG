@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
-python scripts/evaluate_mpii.py --arch=hg2 --image-path=/apps/local/shared/cv701/datasets/mpii_human_pose_v1/images/ --model-file checkpoint/hg2/checkpoint.pth.tar
+for VARIABLE in  checkpoint.pth.tar model_best.pth.tar
+do
+        echo $VARIABLE
+        python scripts/evaluate_mpii.py \
+                --arch=hg2 \
+                --workers=4 \
+                --image-path=/home/joseph.benjamin/LABS/cv701/Asgmt-4/data/images/ \
+                --model-file checkpoint/hg2-grp-dil/${VARIABLE}
+done
