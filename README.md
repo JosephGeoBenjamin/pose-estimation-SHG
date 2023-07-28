@@ -15,7 +15,7 @@ stick to the two-hourglass baseline due to the given limit in
 computational time. we also study possiblity of reducing the computational
 complexity with Grouped convolution approach.
 
-MPII Human Pose datase is used for this work.
+MPII Human Pose database is used for this work.
 
 
 > Note: Completed as part of CV701 Course Assignment MBZUAI.
@@ -79,7 +79,7 @@ $ python scripts/evaluate_mpii.py --arch=hg2 --image-path=/path/to/mpii/images
 Output:
 
 ```
-Final validation PCKh scores:
+Baseline validation PCKh scores:
 
   Head    Shoulder    Elbow    Wrist    Hip    Knee    Ankle    Mean
 ------  ----------  -------  -------  -----  ------  -------  ------
