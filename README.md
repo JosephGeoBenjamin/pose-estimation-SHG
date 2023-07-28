@@ -1,9 +1,35 @@
-# pytorch-stacked-hourglass
+# Self-Distillation and Parameter Reduction Approaches on Human Pose Estimation
 
-This is a fork of [anibali/pytorch-stacked-hourglass](https://github.com/anibali/pytorch-stacked-hourglass) which is fork of [bearpaw/pytorch-pose](https://github.com/bearpaw/pytorch-pose) which is modified for use Course Assignment CV701-MBZUAI.
+![shg-self-distill](https://github.com/JosephGeoBenjamin/pose-estimation-SHG/releases/download/assgmt-submit/SHG-selfdistill-arch.png)
+
+
+## Work:
+[Technical Report](https://docs.google.com/viewer?url=https://github.com/JosephGeoBenjamin/pose-estimation-SHG/releases/download/assgmt-submit/MBZ_CV701_techreport.pdf)
+
+Motivated by self-distillation works, which improve the performance of convolutional neural networks,
+we propose an online self-distillation approach to improve
+the performance of a stacked hourglass network in pose estimation.
+We distill the knowledge from the deeper hourglass
+structure to the earlier hourglass structures. However, we
+stick to the two-hourglass baseline due to the given limit in
+computational time. we also study possiblity of reducing the computational
+complexity with Grouped convolution approach.
+
+MPII Human Pose datase is used for this work.
+
+
+> Note: Completed as part of CV701 Course Assignment MBZUAI.
+
+
+![results](https://github.com/JosephGeoBenjamin/pose-estimation-SHG/releases/download/assgmt-submit/HPE-results.png)
+
+
+---
+# Repo - pytorch-stacked-hourglass
+
+This is a fork of [anibali/pytorch-stacked-hourglass](https://github.com/anibali/pytorch-stacked-hourglass) which is fork of [bearpaw/pytorch-pose](https://github.com/bearpaw/pytorch-pose).
 
 Paper: [Stacked Hourglass Networks for Human Pose Estimation](https://arxiv.org/abs/1603.06937)
-
 
 ## Usage
 
